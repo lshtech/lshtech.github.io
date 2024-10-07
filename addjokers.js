@@ -100,7 +100,7 @@ let blinds = [
 ]
 
 
-// let shop_items = [
+let shop_items = [
 //   {
 //     name: "Joker",
 //     text: [
@@ -117,7 +117,7 @@ let blinds = [
 //     image_url: "img/j_joker.png",
 //     rarity: "Pack"
 //   },
-// ]
+ ]
 
 let cols = {
   
@@ -220,6 +220,25 @@ let process_description = (description) => {
   return desc_html += "</div>";
 }
 
+function CheckForOverride(url)
+{
+    var override_imagepng = url.replace(".png", "_override.png");
+    var override_imagegif = url.replace(".png", "_override.gif");
+    var http = new XMLHttpRequest();
+    http.open('HEAD', override_imagegif, false);
+    http.send();
+    if (http.status!=404){
+      return override_imagegif;
+    }
+    var http = new XMLHttpRequest();
+    http.open('HEAD', override_imagepng, false);
+    http.send();
+    if (http.status!=404){
+      return override_imagepng;
+    }
+    return url;
+}
+
 let add_cards_to_div = (jokers, jokers_div) => {
   Object.keys(jokers).forEach(function(key,index) {
     let joker = jokers[key]
@@ -230,14 +249,14 @@ let add_cards_to_div = (jokers, jokers_div) => {
     if (joker.rarity === "Sticker" || joker.rarity == "Seal") {
       joker_div.innerHTML = `
         <h3>${joker.name}</h3>
-        <img src="${joker.image_url}" alt="${joker.name}" class="hasback" />
+        <img src="${CheckForOverride(joker.image_url)}" alt="${joker.name}" class="hasback" />
         <h4 class="rarity" style="background-color: ${rarities[joker.rarity]}">${joker.rarity}</h4>
         ${process_description(joker.description)}
       `;
     } else {
       joker_div.innerHTML = `
         <h3>${joker.name}</h3>
-        <img src="${joker.image_url}" alt="${joker.name}" />
+        <img src="${CheckForOverride(joker.image_url)}" alt="${joker.name}" />
         <h4 class="rarity" style="background-color: ${rarities[joker.rarity]}">${joker.rarity}</h4>
         ${process_description(joker.description)}
       `;
