@@ -117,7 +117,7 @@ let shop_items = [
 //     image_url: "img/j_joker.png",
 //     rarity: "Pack"
 //   },
- ]
+]
 
 let cols = {
   
@@ -249,14 +249,14 @@ let add_cards_to_div = (jokers, jokers_div) => {
     if (joker.rarity === "Sticker" || joker.rarity == "Seal") {
       joker_div.innerHTML = `
         <h3>${joker.name}</h3>
-        <img src="${CheckForOverride(joker.image_url)}" alt="${joker.name}" class="hasback" />
+        <img src="${joker.image_url}" alt="${joker.name}" class="hasback" />
         <h4 class="rarity" style="background-color: ${rarities[joker.rarity]}">${joker.rarity}</h4>
         ${process_description(joker.description)}
       `;
     } else {
       joker_div.innerHTML = `
         <h3>${joker.name}</h3>
-        <img src="${CheckForOverride(joker.image_url)}" alt="${joker.name}" />
+        <img src="${joker.image_url}" alt="${joker.name}" />
         <h4 class="rarity" style="background-color: ${rarities[joker.rarity]}">${joker.rarity}</h4>
         ${process_description(joker.description)}
       `;
