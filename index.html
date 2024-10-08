@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>mod name</title>
+  <title>Balatro Card Library</title>
   <script src="https://xemantic.github.io/shader-web-background/dist/shader-web-background.min.js"></script>
   <script type="x-shader/x-fragment" id="image">
     precision mediump float;
@@ -85,72 +85,143 @@
   <div class="bg">
   </div>
   <main>
-    <h1>mod name</h1>
-    <p>
-      this is a mod that adds x, y, and z. <br>
-      it also adds foo and bar.
-    </p>
-    <br>
-    <h2>download link</h2>
-    <br>
-    <a href="https://example.com" id="download">download</a>
-    <br>
-    <br>
-    <div class="jokersfull">
-      <h2>jokers</h2>
-      <br>
-      <div class="jokers cards">
-        
+    <div id = "filterButtons">
+      <button class="btn active" onclick="filterSelection('jokersfull')">Jokers</button> 
+      <button class="btn" onclick="filterSelection('consumablefull')">Consumables</button> 
+      <button class="btn" onclick="filterSelection('decksfull')">Decks</button> 
+      <button class="btn" onclick="filterSelection('sealsfull')">Seals</button> 
+      <button class="btn" onclick="filterSelection('vouchersfull')">Vouchers</button> 
+      <button class="btn" onclick="filterSelection('stakesfull')">Stakes</button> 
+      <button class="btn" onclick="filterSelection('sleevesfull')">Sleeves</button> 
+      <button class="btn" onclick="filterSelection('skillsfull')">Skills</button> 
+      <button class="btn" onclick="filterSelection('tagsfull')">Tags</button> 
+      <button class="btn" onclick="filterSelection('editionsfull')">Editions</button> 
+      <button class="btn" onclick="filterSelection('enhancementsfull')">Enhancements</button> 
+      <button class="btn" onclick="filterSelection('boostersfull')">Boosters</button> 
+      <button class="btn" onclick="filterSelection('cursesfull')">Curses</button> 
+      <button class="btn" onclick="filterSelection('contractsfull')">Contracts</button> 
+      <button class="btn" onclick="filterSelection('blindsfull')">Blinds</button> 
+      <button class="btn" onclick="filterSelection('d6sidesfull')">D6 Sides</button> 
+      <button class="btn" onclick="filterSelection('suitsfull')">Suits</button>
+    </div> 
+    <div class="container"><br>
+      <div class="filterDiv jokersfull">
+        <h2>jokers</h2>
+        <br>
+        <div class="jokers cards">
+        </div>
+        <br>
       </div>
-      <br>
-    </div>
-    <div class="consumablesfull">
-      <h2>consumables</h2>
-      <br>
-      <div class="consumables cards">
-        
+      <div class="filterDiv consumablefull">
+        <div class="consumables">
+        </div>
+        <br>
       </div>
-      <br>
-    </div>
-    <div class="cardmodsfull">
-      <h2>card modifications</h2>
-      <br>
-      <div class="cardmods cards">
-        
+      <div class="filterDiv decksfull">
+        <h2>decks</h2>
+        <br>
+        <div class="decks cards">
+        </div>
+        <br>
       </div>
-      <br>
-    </div>
-    <div class="decksfull">
-      <h2>decks</h2>
-      <br>
-      <div class="decks cards">
-        
+      <div class="filterDiv sealsfull">
+        <h2>seals</h2>
+        <br>
+        <div class="seals cards">
+        </div>
+        <br>
       </div>
-      <br>
-    </div>
-    <div class="stickersfull">
-      <h2>stickers</h2>
-      <br>
-      <div class="stickers cards">
-        
+      <div class="filterDiv vouchersfull">
+        <h2>vouchers</h2>
+        <br>
+        <div class="vouchers cards">
+        </div>
+        <br>
       </div>
-      <br>
-    </div>
-    <div class="blindsfull">
-      <h2>blinds</h2>
-      <br>
-      <div class="blinds cards">
-        
+      <div class="filterDiv stakesfull">
+        <h2>stakes</h2>
+        <br>
+        <div class="stakes cards">
+        </div>
+        <br>
       </div>
-      <br>
-    </div>
-    <div class="shopitemsfull">
-      <h2>shop items</h2>
-      <br>
-      <div class="shopitems cards">
-        
+      <div class="filterDiv sleevesfull">
+        <h2>sleeves</h2>
+        <br>
+        <div class="sleeves cards">
+        </div>
+        <br>
       </div>
-      <br>
+      <div class="filterDiv skillsfull">
+        <h2>skills</h2>
+        <br>
+        <div class="skills cards">
+        </div>
+        <br>
+      </div>
+      <div class="filterDiv tagsfull">
+        <h2>tags</h2>
+        <br>
+        <div class="tags cards">
+        </div>
+        <br>
+      </div>
+      <div class="filterDiv editionsfull">
+        <h2>editions</h2>
+        <br>
+        <div class="editions cards">
+        </div>
+        <br>
+      </div>
+      <div class="filterDiv enhancementsfull">
+        <h2>enhancements</h2>
+        <br>
+        <div class="enhancements cards">
+        </div>
+        <br>
+      </div>
+      <div class="filterDiv boostersfull">
+        <h2>boosters</h2>
+        <br>
+        <div class="boosters cards">
+        </div>
+        <br>
+      </div>
+      <div class="filterDiv cursesfull">
+        <h2>curses</h2>
+        <br>
+        <div class="curses cards">
+        </div>
+        <br>
+      </div>
+      <div class="filterDiv contractsfull">
+        <h2>contracts</h2>
+        <br>
+        <div class="contracts cards">
+        </div>
+        <br>
+      </div>
+      <div class="filterDiv blindsfull">
+        <h2>blinds</h2>
+        <br>
+        <div class="blinds cards">
+        </div>
+        <br>
+      </div>
+      <div class="filterDiv d6sidesfull">
+        <h2>d6 sides</h2>
+        <br>
+        <div class="d6sides cards">
+        </div>
+        <br>
+      </div>
+      <div class="filterDiv suitsfull">
+        <h2>suits</h2>
+        <br>
+        <div class="suits cards">
+        </div>
+        <br>
+      </div>
     </div>
   </main>
   <script type="text/javascript" src="cards.js"></script>

@@ -1,6 +1,6 @@
 
 // works the same. 
-let consumables = [
+//let consumables = [
   // {
   //   name: "Joker",
   //   text: [
@@ -25,34 +25,8 @@ let consumables = [
   //   image_url: "img/j_joker.png",
   //   rarity: "Spectral"
   // },
-]
+//]
 
-let card_modifications = [
-  // {
-  //   name: "Joker",
-  //   text: [
-  //     "{C:mult}+4{} Mult"
-  //   ],
-  //   image_url: "img/j_joker.png",
-  //   rarity: "Enhancement"
-  // },
-  // {
-  //   name: "Joker",
-  //   text: [
-  //     "{C:mult}+4{} Mult"
-  //   ],
-  //   image_url: "img/j_joker.png",
-  //   rarity: "Edition"
-  // },
-  // {
-  //   name: "Joker",
-  //   text: [
-  //     "{C:mult}+4{} Mult"
-  //   ],
-  //   image_url: "img/sticker_example.png",
-  //   rarity: "Seal"
-  // },
-]
 
 let decks = [
   // {
@@ -65,59 +39,6 @@ let decks = [
   // },
 ]
 
-let stickers = [
-  // {
-  //   name: "Joker",
-  //   text: [
-  //     "{C:mult}+4{} Mult"
-  //   ],
-  //   image_url: "img/sticker_example.png",
-  //   rarity: "Sticker"
-  // },
-]
-
-let blinds = [
-  // {
-  //   name: "The Wall",
-  //   text: [
-  //     "Extra large blind",
-  //     "{C:inactive}({C:red}4x{C:inactive} Base for {C:attention}$$$$${C:inactive})",
-  //     "{C:inactive}(Appears from Ante 2)"
-  //   ],
-  //   image_url: "img/the_wall.png",
-  //   rarity: "Boss Blind"
-  // },
-  // {
-  //   name: "Violet Vessel",
-  //   text: [
-  //     "Very large blind",
-  //     "{C:inactive}({C:red}6x{C:inactive} Base for {C:attention}$$$$$$$${C:inactive})",
-  //     "{C:inactive}(Appears from Ante 8)"
-  //   ],
-  //   image_url: "img/violet_vessel.png",
-  //   rarity: "Showdown"
-  // },
-]
-
-
-let shop_items = [
-//   {
-//     name: "Joker",
-//     text: [
-//       "{C:mult}+4{} Mult"
-//     ],
-//     image_url: "img/j_joker.png",
-//     rarity: "Voucher"
-//   },
-//   {
-//     name: "Joker",
-//     text: [
-//       "{C:mult}+4{} Mult"
-//     ],
-//     image_url: "img/j_joker.png",
-//     rarity: "Pack"
-//   },
-]
 
 let cols = {
   
@@ -201,18 +122,26 @@ let rarities = {
 regex = /{([^}]+)}/g;
 
 let process_description = (description) => {
+  if (description == undefined) {
+    return ""
+  }
   let desc_html = `<div class="text">`;
   for (let i = 0; i < description.length; i++) {
-      if (i > 0) desc_html += "<br>"
+    if (i > 0) desc_html += "<br>"
     for (let i2 = 0; i2 < description[i].length; i2++){
-      if (description[i][i2].background_colour){
-        desc_html += `<span style="background-color: ${description[i][i2].background_colour}; border-radius: 5px; padding: 0px 5px; color: ${description[i][i2].colour};">${description[i][i2].text}</span>`
+      if (description[i][i2].text){
+        if (description[i][i2].background_colour){
+          desc_html += `<span style="background-color: ${description[i][i2].background_colour}; border-radius: 5px; padding: 0px 5px; color: ${description[i][i2].colour};">${description[i][i2].text}</span>`
+        }
+        else if (description[i][i2].colour == "#4f6367") {
+          desc_html += description[i][i2].text
+        }
+        else {
+          desc_html += `<span style="color: ${description[i][i2].colour};">${description[i][i2].text}</span>`
+        }
       }
-      else if (description[i][i2].colour == "#4f6367") {
-        desc_html += description[i][i2].text
-      }
-      else {
-        desc_html += `<span style="color: ${description[i][i2].colour};">${description[i][i2].text}</span>`
+      else{
+        desc_html += `<span >${description[i][i2]}</span>`
       }
     }
   }
@@ -239,25 +168,33 @@ function CheckForOverride(url)
     return url;
 }
 
+function CheckForRarity(card){
+  if (card.rarity){
+    return `<h4 class="rarity" style="background-color: ${rarities[card.rarity]}">${card.rarity}</h4>`;
+  }
+  return "";
+}
+
 let add_cards_to_div = (jokers, jokers_div) => {
-  Object.keys(jokers).forEach(function(key,index) {
+  Object.keys(jokers).sort().forEach(function(key,index) {
     let joker = jokers[key]
-    console.log("adding joker", joker.name);
+    //console.log("adding joker", joker.name);
   
     let joker_div = document.createElement("div");
     joker_div.classList.add("joker");
+    
     if (joker.rarity === "Sticker" || joker.rarity == "Seal") {
       joker_div.innerHTML = `
         <h3>${joker.name}</h3>
         <img src="${joker.image_url}" alt="${joker.name}" class="hasback" />
-        <h4 class="rarity" style="background-color: ${rarities[joker.rarity]}">${joker.rarity}</h4>
+        ${CheckForRarity(joker)}
         ${process_description(joker.description)}
       `;
     } else {
       joker_div.innerHTML = `
         <h3>${joker.name}</h3>
         <img src="${joker.image_url}" alt="${joker.name}" />
-        <h4 class="rarity" style="background-color: ${rarities[joker.rarity]}">${joker.rarity}</h4>
+        ${CheckForRarity(joker)}
         ${process_description(joker.description)}
       `;
     }
@@ -271,51 +208,121 @@ let add_cards_to_div = (jokers, jokers_div) => {
 });
 }
 
-if (cards.Joker.length === 0) {
-  document.querySelector(".jokersfull").style.display = "none"
-} else {
-  let jokers_div = document.querySelector(".jokers");
-  add_cards_to_div(cards.Joker, jokers_div);
+let jokers_div = document.querySelector(".jokers");
+add_cards_to_div(cards.Joker, jokers_div);
+
+let consumables_div = document.querySelector(".consumables");
+Object.keys(cards.Consumables).sort().forEach(function(key,index) {
+  console.log(key)
+  consumables_div.innerHTML += `
+    <h2>${key}</h2>
+    <br>
+    <div class="${key} cards">
+    </div>
+    <br>
+    `
+  let consumables_set_div = document.querySelector(`.${key}`);
+  add_cards_to_div(cards.Consumables[key], consumables_set_div);
+});
+
+let decks_div = document.querySelector(".decks");
+add_cards_to_div(cards.Back, decks_div);
+
+let seals_div = document.querySelector(".seals");
+add_cards_to_div(cards.Seal, seals_div);
+
+let vouchers_div = document.querySelector(".vouchers");
+add_cards_to_div(cards.Voucher, vouchers_div);
+
+let stakes_div = document.querySelector(".stakes");
+add_cards_to_div(cards.Stake, stakes_div);
+
+let sleeves_div = document.querySelector(".sleeves");
+add_cards_to_div(cards.Sleeve, sleeves_div);
+
+let skills_div = document.querySelector(".skills");
+add_cards_to_div(cards.Skill, skills_div);
+
+let tags_div = document.querySelector(".tags");
+add_cards_to_div(cards.Tag, tags_div);
+
+let editions_div = document.querySelector(".editions");
+add_cards_to_div(cards.Edition, editions_div);
+
+let enhancements_div = document.querySelector(".enhancements");
+add_cards_to_div(cards.Enhanced, enhancements_div);
+
+let boosters_div = document.querySelector(".boosters");
+add_cards_to_div(cards.Booster, boosters_div);
+
+let curses_div = document.querySelector(".curses");
+add_cards_to_div(cards.Curse, curses_div);
+
+let contracts_div = document.querySelector(".contracts");
+add_cards_to_div(cards.Contract, contracts_div);
+
+let blinds_div = document.querySelector(".blinds");
+add_cards_to_div(cards.Blind, blinds_div);
+
+let d6sides_div = document.querySelector(".d6sides");
+add_cards_to_div(cards["D6 Side"], d6sides_div);
+
+let suits_div = document.querySelector(".suits");
+add_cards_to_div(cards.Suit, suits_div);
+
+
+
+
+
+
+
+
+
+filterSelection("jokersfull")
+function filterSelection(c) {
+  var x, i;
+  x = document.getElementsByClassName("filterDiv");
+  //if (c == "all") c = "";
+  // Add the "show" class (display:block) to the filtered elements, and remove the "show" class from the elements that are not selected
+  for (i = 0; i < x.length; i++) {
+    w3RemoveClass(x[i], "show");
+    if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+  }
 }
 
-if (consumables.length === 0) {
-  document.querySelector(".consumablesfull").style.display = "none"
-} else {
-  let consumables_div = document.querySelector(".consumables");
-  add_cards_to_div(consumables, consumables_div);
+// Show filtered elements
+function w3AddClass(element, name) {
+  console.log(name);
+  var i, arr1, arr2;
+  arr1 = element.className.split(" ");
+  arr2 = name.split(" ");
+  for (i = 0; i < arr2.length; i++) {
+    if (arr1.indexOf(arr2[i]) == -1) {
+      element.className += " " + arr2[i];
+    }
+  }
 }
 
-if (card_modifications.length === 0) {
-  document.querySelector(".cardmodsfull").style.display = "none"
-} else {
-  let cardmods_div = document.querySelector(".cardmods");
-  add_cards_to_div(card_modifications, cardmods_div);
+// Hide elements that are not selected
+function w3RemoveClass(element, name) {
+  var i, arr1, arr2;
+  arr1 = element.className.split(" ");
+  arr2 = name.split(" ");
+  for (i = 0; i < arr2.length; i++) {
+    while (arr1.indexOf(arr2[i]) > -1) {
+      arr1.splice(arr1.indexOf(arr2[i]), 1);
+    }
+  }
+  element.className = arr1.join(" ");
 }
 
-if (decks.length === 0) {
-  document.querySelector(".decksfull").style.display = "none"
-} else {
-  let decks_div = document.querySelector(".decks");
-  add_cards_to_div(decks, decks_div);
-}
-
-if (stickers.length === 0) {
-  document.querySelector(".stickersfull").style.display = "none"
-} else {
-  let stickers_div = document.querySelector(".stickers");
-  add_cards_to_div(stickers, stickers_div);
-}
-
-if (blinds.length === 0) {
-  document.querySelector(".blindsfull").style.display = "none"
-} else {
-  let blinds_div = document.querySelector(".blinds");
-  add_cards_to_div(blinds, blinds_div);
-}
-
-if (shop_items.length === 0) {
-  document.querySelector(".shopitemsfull").style.display = "none"
-} else {
-  let shopitems_div = document.querySelector(".shopitems");
-  add_cards_to_div(shop_items, shopitems_div);
+// Add active class to the current control button (highlight it)
+var filterButtons = document.getElementById("filterButtons");
+var btns = filterButtons.getElementsByClassName("btn");
+for (var i = 0; i < btns.length; i++) {
+  btns[i].addEventListener("click", function() {
+    var current = document.getElementsByClassName("active");
+    current[0].className = current[0].className.replace(" active", "");
+    this.className += " active";
+  });
 }
