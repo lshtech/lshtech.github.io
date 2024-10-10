@@ -242,8 +242,9 @@ for (var i = 0; i < btns.length; i++) {
   });
 }
 
+var mainData
 function fetchJSONData() {
-  return fetch("./main.json")
+  fetch("./main.json")
       .then((res) => {
           if (!res.ok) {
               throw new Error
@@ -251,6 +252,8 @@ function fetchJSONData() {
           }
           return res.json();
       })
+      .then((data) =>
+          mainData = data)
       .catch((error) =>
           console.error("Unable to fetch data:", error));
 }
