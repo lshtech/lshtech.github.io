@@ -1,88 +1,3 @@
-
-// works the same. 
-//let consumables = [
-  // {
-  //   name: "Joker",
-  //   text: [
-  //     "{C:mult}+4{} Mult"
-  //   ],
-  //   image_url: "img/j_joker.png",
-  //   rarity: "Tarot"
-  // },
-  // {
-  //   name: "Joker",
-  //   text: [
-  //     "{C:mult}+4{} Mult"
-  //   ],
-  //   image_url: "img/j_joker.png",
-  //   rarity: "Planet"
-  // },
-  // {
-  //   name: "Joker",
-  //   text: [
-  //     "{C:mult}+4{} Mult"
-  //   ],
-  //   image_url: "img/j_joker.png",
-  //   rarity: "Spectral"
-  // },
-//]
-
-
-let decks = [
-  // {
-  //   name: "Joker",
-  //   text: [
-  //     "{C:mult}+4{} Mult"
-  //   ],
-  //   image_url: "img/j_joker.png",
-  //   rarity: "Deck"
-  // },
-]
-
-
-let cols = {
-  
-  MULT: "#FE5F55",
-  CHIPS: "#009dff",
-  MONEY: "#f3b958",
-  XMULT: "#FE5F55",
-  FILTER: "#ff9a00",
-  ATTENTION: "#ff9a00",
-  BLUE: "#009dff",
-  RED: "#FE5F55",
-  GREEN: "#4BC292",
-  PALE_GREEN: "#56a887",
-  ORANGE: "#fda200",
-  IMPORTANT: "#ff9a00",
-  GOLD: "#eac058",
-  YELLOW: "#ffff00",
-  CLEAR: "#00000000", 
-  WHITE: "#ffffff",
-  PURPLE: "#8867a5",
-  BLACK: "#374244",
-  L_BLACK: "#4f6367",
-  GREY: "#5f7377",
-  CHANCE: "#4BC292",
-  JOKER_GREY: "#bfc7d5",
-  VOUCHER: "#cb724c",
-  BOOSTER: "#646eb7",
-  EDITION: "#ffffff",
-  DARK_EDITION: "#5d5dff",
-  ETERNAL: "#c75985",
-  INACTIVE: "#ffffff99",
-  HEARTS: "#f03464",
-  DIAMONDS: "#f06b3f",
-  SPADES: "#403995",
-  CLUBS: "#235955",
-  ENHANCED: "#8389DD",
-  JOKER: "#708b91",
-  TAROT: "#a782d1",
-  PLANET: "#13afce",
-  SPECTRAL: "#4584fa",
-  VOUCHER: "#fd682b",
-  EDITION: "#4ca893",
-}
-
 let rarities = {
   "Common": "#009dff", 
   "Uncommon": "#4BC292",
@@ -326,3 +241,19 @@ for (var i = 0; i < btns.length; i++) {
     this.className += " active";
   });
 }
+
+function fetchJSONData() {
+  fetch("./main.json")
+      .then((res) => {
+          if (!res.ok) {
+              throw new Error
+                  (`HTTP error! Status: ${res.status}`);
+          }
+          return res.json();
+      })
+      .then((data) =>
+          console.log(data))
+      .catch((error) =>
+          console.error("Unable to fetch data:", error));
+}
+fetchJSONData();
