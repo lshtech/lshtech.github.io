@@ -242,7 +242,6 @@ for (var i = 0; i < btns.length; i++) {
   });
 }
 
-var mainData
 function fetchJSONData() {
   fetch("./main.json")
       .then((res) => {
@@ -252,9 +251,7 @@ function fetchJSONData() {
           }
           return res.json();
       })
-      .then((data) =>
-          mainData = data)
       .catch((error) =>
           console.error("Unable to fetch data:", error));
 }
-fetchJSONData();
+var main = await fetchJSONData();
