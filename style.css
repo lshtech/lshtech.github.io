@@ -170,3 +170,27 @@ img.hasback {
   background-color: #666;
   color: white;
 }
+
+.plus {
+  font-size: xx-large;
+  background-color: white;
+  border: 1px solid black;
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  line-height: 18px;
+  padding-left: 1px;
+  border-radius: 5px;
+}
+
+.mult {
+  border: 1px solid black;
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  line-height: 15px;
+  color: white;
+  vertical-align: top;
+  padding-top: 2px;
+  border-radius: 5px;
+}

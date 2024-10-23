@@ -65,6 +65,45 @@ let process_description = (description) => {
   return desc_html += "</div>";
 }
 
+function process_tags(tags){
+  var tag_div = ""
+  if (typeof tags !== 'undefined' && tags.length > 0) {
+    var chips = false
+    var mult = false
+    var xchips = false
+    var xmult = false
+    tag_div = "<div>"
+    for (i = 0; i < tags.length; i++) {
+      if (tags[i] == "mult"){
+        mult = true
+      }
+      if (tags[i] == "chips"){
+        chips = true
+      }
+      if (tags[i] == "xmult"){
+        xmult = true
+      }
+      if (tags[i] == "xchips"){
+        xchips = true
+      }
+    }
+    if (mult){
+      tag_div += '<span class="plus" style="color: red" >+</span>'
+    }
+    if (xmult){
+      tag_div += '<span class="mult" style="background-color: red" >X</span>'
+    }
+    if (chips){
+      tag_div += '<span class="plus" style="color: blue" >+</span>'
+    }
+    if (xchips){
+      tag_div += '<span class="mult" style="background-color: blue" >X</span>'
+    }
+    tag_div += "</div>"
+  }
+  return tag_div;
+}
+
 function CheckForOverride(url)
 {
     var override_imagepng = url.replace(".png", "_override.png");
@@ -102,16 +141,17 @@ let add_cards_to_div = (jokers, jokers_div) => {
     if (joker.rarity === "Sticker" || joker.rarity == "Seal") {
       joker_div.innerHTML = `
         <h3>${joker.name}</h3>
-        <img src="${joker.image_url}" alt="${joker.name}" class="hasback" />
+        <img loading="lazy" src="${joker.image_url}" alt="${joker.name}" class="hasback" />
         ${CheckForRarity(joker)}
         ${process_description(joker.description)}
       `;
     } else {
       joker_div.innerHTML = `
         <h3>${joker.name}</h3>
-        <img src="${joker.image_url}" alt="${joker.name}" />
+        <img loading="lazy" src="${joker.image_url}" alt="${joker.name}" />
         ${CheckForRarity(joker)}
         ${process_description(joker.description)}
+        ${process_tags(joker.tags)}
       `;
     }
     if (joker.mod){
